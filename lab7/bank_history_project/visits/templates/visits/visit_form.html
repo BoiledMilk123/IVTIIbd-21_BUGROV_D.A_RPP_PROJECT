@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+   <html>
+   <head>
+       <title>{% if form.instance.pk %}Редактировать посещение{% else %}Добавить посещение{% endif %}</title>
+   </head>
+   <body>
+       <h1>{% if form.instance.pk %}Редактировать посещение{% else %}Добавить посещение{% endif %}</h1>
+       <form method="post">
+           {% csrf_token %}
+           {{ form.as_p }}
+           <input type="submit" value="Сохранить">
+       </form>
+       <a href="{% url 'visit_list' %}">Отмена</a>
+   </body>
+   </html>

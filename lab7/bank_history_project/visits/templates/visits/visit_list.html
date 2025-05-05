@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+   <html>
+   <head>
+       <title>Список посещений</title>
+   </head>
+   <body>
+       <h1>Список посещений</h1>
+       <a href="{% url 'visit_add' %}">Добавить посещение</a>
+       <table border="1">
+           <tr>
+               <th>Клиент</th>
+               <th>Сотрудник</th>
+               <th>Филиал</th>
+               <th>Дата</th>
+               <th>Тип</th>
+               <th>Действия</th>
+           </tr>
+           {% for visit in visits %}
+           <tr>
+               <td>{{ visit.client.full_name }}</td>
+               <td>{{ visit.employee.full_name }}</td>
+               <td>{{ visit.branch.name }}</td>
+               <td>{{ visit.visit_date }}</td>
+               <td>{{ visit.visit_type }}</td>
+               <td>
+                   <a href="{% url 'visit_detail' visit.pk %}">Подробно</a>
+                   <a href="{% url 'visit_edit' visit.pk %}">Редактировать</a>
+                   <a href="{% url 'visit_delete' visit.pk %}">Удалить</a>
+               </td>
+           </tr>
+           {% empty %}
+           <tr>
+               <td colspan="6">Нет посещений</td>
+           </tr>
+           {% endfor %}
+       </table>
+   </body>
+   </html>

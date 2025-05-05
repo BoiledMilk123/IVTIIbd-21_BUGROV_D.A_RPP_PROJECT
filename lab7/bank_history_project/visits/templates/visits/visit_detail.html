@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+   <html>
+   <head>
+       <title>Посещение #{{ visit.pk }}</title>
+   </head>
+   <body>
+       <h1>Посещение #{{ visit.pk }}</h1>
+       <p><strong>Клиент:</strong> {{ visit.client.full_name }}</p>
+       <p><strong>Сотрудник:</strong> {{ visit.employee.full_name }}</p>
+       <p><strong>Филиал:</strong> {{ visit.branch.name }}</p>
+       <p><strong>Дата:</strong> {{ visit.visit_date }}</p>
+       <p><strong>Тип:</strong> {{ visit.visit_type }}</p>
+       <a href="{% url 'visit_list' %}">Назад к списку</a>
+   </body>
+   </html>
