@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список услуг</title>
+</head>
+<body>
+    <h1>Список услуг</h1>
+    <a href="{% url 'service_add' %}">Добавить услугу</a>
+    <br><br>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Действия</th>
+        </tr>
+        {% for service in services %}
+        <tr>
+            <td>{{ service.name }}</td>
+            <td>{{ service.description }}</td>
+             <td>
+                <a href="{% url 'service_detail' service.pk %}">Подробно</a>
+                {% if perms.visits.change_service %}
+                    <a href="{% url 'service_edit' service.pk %}">Редактировать</a>
+                {% endif %}
+                {% if perms.visits.delete_client %}
+                    <a href="{% url 'service_delete' service.pk %}">Удалить</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Нет услуг</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список клиентов</title>
+</head>
+<body>
+    <h1>Список клиентов</h1>
+    {% if perms.visits.add_client %}
+        <a href="{% url 'client_add' %}">Добавить клиента</a>
+    {% endif %}
+    <br><br>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ФИО</th>
+            <th>Email</th>
+            <th>Действия</th>
+        </tr>
+        {% for client in clients %}
+        <tr>
+            <td>{{ client.full_name }}</td>
+            <td>{{ client.email }}</td>
+            <td>
+                <a href="{% url 'client_detail' client.pk %}">Подробно</a>
+                {% if perms.visits.change_client %}
+                    <a href="{% url 'client_edit' client.pk %}">Редактировать</a>
+                {% endif %}
+                {% if perms.visits.delete_client %}
+                    <a href="{% url 'client_delete' client.pk %}">Удалить</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Нет клиентов</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{% url 'visit_list' %}">Назад к посещениям</a>
+</body>
+</html>

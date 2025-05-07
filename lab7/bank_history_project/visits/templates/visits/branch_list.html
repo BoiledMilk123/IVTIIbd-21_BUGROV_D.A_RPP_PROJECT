@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список филиалов</title>
+</head>
+<body>
+    <h1>Список филиалов</h1>
+    <a href="{% url 'branch_add' %}">Добавить филиал</a>
+    <br><br>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Название</th>
+            <th>Адрес</th>
+            <th>Действия</th>
+        </tr>
+        {% for branch in branches %}
+        <tr>
+            <td>{{ branch.name }}</td>
+            <td>{{ branch.address }}</td>
+            <td>
+                <a href="{% url 'branch_detail' branch.pk %}">Подробно</a>
+                {% if perms.visits.change_branch %}
+                    <a href="{% url 'branch_edit' branch.pk %}">Редактировать</a>
+                {% endif %}
+                {% if perms.visits.delete_client %}
+                    <a href="{% url 'branch_delete' branch.pk %}">Удалить</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Нет филиалов</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

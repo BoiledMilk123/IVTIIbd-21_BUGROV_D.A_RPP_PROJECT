@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список сотрудников</title>
+</head>
+<body>
+    <h1>Список сотрудников</h1>
+    <a href="{% url 'employee_add' %}">Добавить сотрудника</a>
+    <br><br>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ФИО</th>
+            <th>Должность</th>
+            <th>Действия</th>
+        </tr>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.full_name }}</td>
+            <td>{{ employee.position }}</td>
+             <td>
+                <a href="{% url 'employee_detail' employee.pk %}">Подробно</a>
+                {% if perms.visits.change_employee %}
+                    <a href="{% url 'employee_edit' employee.pk %}">Редактировать</a>
+                {% endif %}
+                {% if perms.visits.delete_employee %}
+                    <a href="{% url 'employee_delete' employee.pk %}">Удалить</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Нет сотрудников</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

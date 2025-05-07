@@ -1,38 +1,74 @@
 <!DOCTYPE html>
-   <html>
-   <head>
-       <title>Список посещений</title>
-   </head>
-   <body>
-       <h1>Список посещений</h1>
-       <a href="{% url 'visit_add' %}">Добавить посещение</a>
-       <table border="1">
-           <tr>
-               <th>Клиент</th>
-               <th>Сотрудник</th>
-               <th>Филиал</th>
-               <th>Дата</th>
-               <th>Тип</th>
-               <th>Действия</th>
-           </tr>
-           {% for visit in visits %}
-           <tr>
-               <td>{{ visit.client.full_name }}</td>
-               <td>{{ visit.employee.full_name }}</td>
-               <td>{{ visit.branch.name }}</td>
-               <td>{{ visit.visit_date }}</td>
-               <td>{{ visit.visit_type }}</td>
-               <td>
-                   <a href="{% url 'visit_detail' visit.pk %}">Подробно</a>
-                   <a href="{% url 'visit_edit' visit.pk %}">Редактировать</a>
-                   <a href="{% url 'visit_delete' visit.pk %}">Удалить</a>
-               </td>
-           </tr>
-           {% empty %}
-           <tr>
-               <td colspan="6">Нет посещений</td>
-           </tr>
-           {% endfor %}
-       </table>
-   </body>
-   </html>
+<html>
+<head>
+    <title>Список посещений</title>
+</head>
+<body>
+    <h1>Список посещений</h1>
+    {% if user.is_authenticated %}
+        <p>Вы вошли как: {{ user.username }}</p>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Выход</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Вход</a></p>
+        <p><a href="{% url 'register' %}">Регистрация</a></p>
+    {% endif %}
+    <h3>Навигация</h3>
+    <ul>
+        {% if perms.visits.view_client %}
+            <li><a href="{% url 'client_list' %}">Клиенты</a></li>
+        {% endif %}
+        {% if perms.visits.view_employee %}
+            <li><a href="{% url 'employee_list' %}">Сотрудники</a></li>
+        {% endif %}
+        {% if perms.visits.view_branch %}
+            <li><a href="{% url 'branch_list' %}">Филиалы</a></li>
+        {% endif %}
+        {% if perms.visits.view_service %}
+            <li><a href="{% url 'service_list' %}">Услуги</a></li>
+        {% endif %}
+        {% if perms.visits.view_visitservice %}
+            <li><a href="{% url 'visitservice_list' %}">Связи посещений и услуг</a></li>
+        {% endif %}
+    </ul>
+    <br>
+    {% if perms.visits.add_visit %}
+        <a href="{% url 'visit_add' %}">Добавить посещение</a>
+    {% endif %}
+    <br><br>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Клиент</th>
+            <th>Сотрудник</th>
+            <th>Филиал</th>
+            <th>Дата</th>
+            <th>Тип</th>
+            <th>Действия</th>
+        </tr>
+        {% for visit in visits %}
+        <tr>
+            <td>{{ visit.client }}</td>
+            <td>{{ visit.employee }}</td>
+            <td>{{ visit.branch }}</td>
+            <td>{{ visit.visit_date }}</td>
+            <td>{{ visit.visit_type }}</td>
+            <td>
+                <a href="{% url 'visit_detail' visit.pk %}">Подробно</a>
+                {% if perms.visits.change_visit %}
+                    <a href="{% url 'visit_edit' visit.pk %}">Редактировать</a>
+                {% endif %}
+                {% if perms.visits.delete_visit %}
+                    <a href="{% url 'visit_delete' visit.pk %}">Удалить</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">Нет посещений</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

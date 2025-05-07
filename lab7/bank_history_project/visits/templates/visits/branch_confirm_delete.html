@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Удалить филиал</title>
+</head>
+<body>
+    <h1>Удалить филиал #{{ object.pk }}?</h1>
+    <p>Вы уверены, что хотите удалить филиал {{ object.name }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Удалить">
+    </form>
+    <br>
+    <a href="{% url 'branch_list' %}">Отмена</a>
+</body>
+</html>
