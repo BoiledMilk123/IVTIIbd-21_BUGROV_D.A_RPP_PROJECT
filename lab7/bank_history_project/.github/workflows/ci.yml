@@ -2,7 +2,7 @@ name: CI/CD for Amvera
 
 on:
   push:
-    branches: [ main ]
+    branches: [ lab7 ]
 
 jobs:
   test:
