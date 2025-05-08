@@ -11,4 +11,3 @@ meta:
     servicePort: 80
     command: gunicorn bank_history.wsgi:application --bind 0.0.0.0:8000
 
-
