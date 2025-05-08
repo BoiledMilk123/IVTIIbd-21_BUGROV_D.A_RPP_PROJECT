@@ -12,7 +12,6 @@ class RegisterView(FormView):
     success_url = reverse_lazy('visit_list')
 
     def form_valid(self, form):
-        user = form.save()
         return super().form_valid(form)
 
 # Client CRUD

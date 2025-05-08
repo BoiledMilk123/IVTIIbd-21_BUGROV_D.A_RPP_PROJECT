@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
 
+app_name = 'visits'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('visits/', include('visits.urls')),
+    path('visits/', include('visits.urls', namespace='visits')),
     path('', RedirectView.as_view(url='/visits/'), name='home'),
 
 ]

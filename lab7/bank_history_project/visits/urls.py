@@ -1,4 +1,5 @@
-from django.urls import path
+from django.contrib import admin
+from django.urls import path, include
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.base import TemplateView
 from .views import (
@@ -10,6 +11,7 @@ from .views import (
     VisitListView, VisitDetailView, VisitCreateView, VisitUpdateView, VisitDeleteView,
     VisitServiceListView, VisitServiceDetailView, VisitServiceCreateView, VisitServiceUpdateView, VisitServiceDeleteView
 )
+app_name = 'visits'
 
 urlpatterns = [
     # Аутентификация
