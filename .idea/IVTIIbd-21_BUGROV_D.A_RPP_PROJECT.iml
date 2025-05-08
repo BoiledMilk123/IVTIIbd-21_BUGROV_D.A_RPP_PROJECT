@@ -7,4 +7,8 @@
     <orderEntry type="jdk" jdkName="Python 3.12 (IVTIIbd-21_BUGROV_D.A_RPP_PROJECT)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyDocumentationSettings">
+    <option name="format" value="PLAIN" />
+    <option name="myDocStringFormat" value="Plain" />
+  </component>
 </module>
