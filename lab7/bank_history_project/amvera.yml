@@ -2,12 +2,28 @@ meta:
   environment: python
   toolchain:
     name: pip
-    version: 3.11
-  build:
-    requirementsPath: requirements.txt
-  run:
-    persistenceMount: /data
-    containerPort: 8000
-    servicePort: 80
-    command: gunicorn bank_history.wsgi:application --bind 0.0.0.0:8000
+    version: "3.11"
+build:
+  requirementsPath: requirements.txt
+run:
+  scriptName: lab7/bank_history_project/manage.py
+  command: gunicorn bank_history.wsgi:application --bind 0.0.0.0:8000
+  persistenceMount: /data
+  containerPort: "80"
+  servicePort: "80"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
